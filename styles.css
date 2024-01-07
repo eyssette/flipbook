@@ -24,7 +24,7 @@ body {
 }
 
 .controls {
-	margin: 2em auto;
+	margin: 1em auto;
 	text-align: center;
 	color:white;
 	background-color: #252121;
@@ -44,7 +44,7 @@ body {
 
 @media screen and (min-width:500px) {
 	#book{
-		margin: 3em auto;
+		margin: 1em auto;
 	}
 }
 
@@ -54,8 +54,8 @@ body {
 }
 
 .page * {
-	padding-left: 30px;
-	padding-right: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
 	text-align: left
 }
 
