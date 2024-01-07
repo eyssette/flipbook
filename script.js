@@ -13,6 +13,14 @@ function createBook(w, h) {
 		flippingTime: 500,
 	});
 
+
+	const pages = document.querySelectorAll('.page');
+	for (const page of pages) {
+		page.style.width = w + 'px';
+		page.style.height = h + 'px';
+	}
+	textFit(pages, {multiLine: true,alignHoriz: true, alignVert: true})
+
 	pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
 	const numPages = pageFlip.getPageCount();
