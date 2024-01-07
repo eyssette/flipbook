@@ -73,8 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	createBook(bookWidth, bookHeight);
 	window.addEventListener("resize", function () {
-		//const [bookWidth, bookHeight] = calculateDimensions();
-			//createBook(bookWidth, bookHeight);
 		location.reload();
 	});
 });
