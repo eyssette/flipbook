@@ -27,6 +27,8 @@ body {
 	margin: 2em auto;
 	text-align: center;
 	color:white;
+	background-color: #252121;
+	z-index: 1;
 }
 
 .controls button {

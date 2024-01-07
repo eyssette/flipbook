@@ -1,9 +1,15 @@
 function createBook(w, h) {
+	let usePortrait = false;
+	if (w < 350) {
+		usePortrait = true;
+		w = (80 * window.innerWidth) / 100;
+		h = (70 * window.innerHeight) / 100;
+	}
 	const pageFlip = new St.PageFlip(document.getElementById("book"), {
 		width: w,
 		height: h,
 		showCover: true,
-		usePortrait: false,
+		usePortrait: usePortrait,
 		flippingTime: 500,
 	});
 
@@ -33,7 +39,7 @@ function createBook(w, h) {
 	pageFlip.on("flip", (e) => {
 		if (e.data == 0) {
 			currentPage = '1';
-		} else if (e.data + 1 == numPages) {
+		} else if (e.data + 1 == numPages || usePortrait) {
 			currentPage = e.data + 1;
 		} else {
 			currentPage = (e.data + 1) + '-' + (e.data+2)
