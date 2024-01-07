@@ -3,7 +3,7 @@ function createBook(w, h) {
 	if (w < 290) {
 		portrait = true;
 		w = (90 * window.innerWidth) / 100;
-		h = (70 * window.innerHeight) / 100;
+		h = (80 * window.innerHeight) / 100;
 	}
 	
 	const pageFlip = new St.PageFlip(document.getElementById("book"), {
