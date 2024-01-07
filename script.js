@@ -1,9 +1,11 @@
 function createBook(w, h) {
-	let usePortrait = false;
+	let usePortrait
 	if (w < 350) {
 		usePortrait = true;
-		w = (80 * window.innerWidth) / 100;
+		w = (90 * window.innerWidth) / 100;
 		h = (70 * window.innerHeight) / 100;
+	} else {
+		usePortrait = false;
 	}
 	const pageFlip = new St.PageFlip(document.getElementById("book"), {
 		width: w,
