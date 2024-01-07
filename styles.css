@@ -20,7 +20,7 @@ body {
 	display:flex;
 	flex-direction: column;
 	justify-content: center;
-	height:95vh;
+	/* height:95vh; */
 }
 
 .controls {
@@ -37,13 +37,20 @@ body {
 
 #book {
 	background-color: #252121;
-	margin: 3em auto;
+	margin: auto;
 	background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ef/Book_cover_fabric_-_Flickr_-_Delany_Dean.jpg");
 	background-size: cover;
 }
 
+@media screen and (min-width:500px) {
+	#book{
+		margin: 3em auto;
+	}
+}
+
 .page {
 	background-color: white;
+	overflow:hidden;
 }
 
 .page * {
