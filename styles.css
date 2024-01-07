@@ -58,3 +58,7 @@ body {
 	padding-right: 2em;
 	text-align: left
 }
+
+.page img {
+	max-width:90%;
+}
