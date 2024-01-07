@@ -27,7 +27,7 @@ function createBook(w, h) {
 		if (event.key === "ArrowRight") {
 			pageFlip.flipNext();
 		}
-	});s
+	});
 
 	let currentPage = '';
 	pageFlip.on("flip", (e) => {
