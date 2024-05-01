@@ -53,10 +53,14 @@ body {
 	overflow:hidden;
 }
 
-.page * {
+.page *:not(ul) {
 	padding-left: 20px;
 	padding-right: 20px;
 	text-align: left
+}
+
+.page ul, .page ol {
+	padding-left:1em;
 }
 
 @media screen and (max-width:500px) {

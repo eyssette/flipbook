@@ -10,12 +10,11 @@ Un outil pour créer facilement un livre numérique que l'on peut feuilleter en 
 
 ---
 
-![](https://picsum.photos/500/300 =x300)
-
-La taille de la police est ajustée pour que le contenu tienne sur la page.
-Pour pouvoir prendre en compte les images, il faut leur donner une hauteur explicite.
+On sépare simplement chaque page avec l'élément : \`\`\`---\`\`\`
 
 ---
+
+## La taille de la police est ajustée automatiquement pour que le contenu tienne sur la page.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris nec venenatis convallis. Vivamus ultrices fermentum dapibus. Sed quis erat maximus, scelerisque tellus eget, suscipit nisl. Donec vulputate purus ultricies dolor tristique bibendum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consectetur vel diam non eleifend. Proin ultrices leo pulvinar ipsum lobortis, vel sodales quam sagittis.
 Nam sed libero magna. Aliquam ut eleifend libero, ac malesuada massa. Nulla iaculis mi nisl, vitae tempor mi volutpat eu. Aliquam erat volutpat. Mauris sodales ultrices ante, maximus pulvinar dolor. Nullam mattis sem non orci mollis porttitor. Sed aliquam eros velit. Fusce interdum enim sed volutpat accumsan. Proin consequat, nisi in congue varius, ipsum erat elementum elit, eget mollis metus nulla eget risus. Donec aliquet, massa quis feugiat congue, lacus tellus elementum sapien, nec iaculis libero nunc vitae mi. Curabitur eget felis in sapien aliquam volutpat vel vitae urna. Quisque a ipsum a massa convallis eleifend. Nulla facilisi.
@@ -23,21 +22,17 @@ Morbi justo diam, pellentesque quis porta ac, pulvinar nec elit. Ut dignissim ef
 
 ---
 
-Morbi aliquet, metus at sagittis rhoncus, sapien purus tempus diam, sit amet hendrerit ipsum ex nec leo. Integer molestie commodo urna vitae condimentum. Maecenas pharetra, mi sit amet pretium pharetra, neque elit venenatis justo, a aliquam elit enim vitae orci. Suspendisse quis arcu sed erat rhoncus accumsan a non leo. Duis at diam eu felis interdum commodo ac quis justo. Suspendisse semper nisl sit amet interdum volutpat. Aliquam elit ex, cursus at pellentesque sed, varius ac diam. Aliquam quis nibh non elit semper efficitur. Sed malesuada urna tellus, eu rhoncus erat porttitor vel. Nullam a mi vitae erat accumsan sagittis at nec sem. Praesent mi justo, efficitur vel diam ut, ullamcorper vestibulum sem. Nunc vitae faucibus quam.
-Morbi suscipit ultricies turpis quis varius. Proin luctus, erat in feugiat pulvinar, dolor ante finibus magna, id lacinia lacus est at mi. Phasellus felis diam, rhoncus vitae maximus luctus, interdum a sapien. Vivamus iaculis vel ex id ornare. Donec condimentum ligula ac sollicitudin dictum. Sed ornare rutrum convallis. Integer sollicitudin tempus quam at suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in odio ut augue convallis posuere vitae in nisi. Ut a mattis turpis. Nam vulputate non sapien sit amet aliquet. Suspendisse quis erat felis. Maecenas lobortis porttitor pellentesque. Integer ullamcorper quis nisi vitae suscipit. Ut at est tempor, pretium tortor id, rutrum diam. Aenean tempor ullamcorper hendrerit.
+![](https://picsum.photos/500/300 =x300)
+
+On peut insérer des images, mais il faut leur donner une hauteur explicite pour que la police soit ajustée correctement.
 
 ---
 
-Morbi justo diam, pellentesque quis porta ac, pulvinar nec elit. Ut dignissim efficitur libero non convallis. Nullam eu tincidunt libero, sed tempus elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer a imperdiet sem, vel eleifend purus. Nullam urna enim, mollis sit amet augue eget, sodales euismod erat. Maecenas maximus arcu eu volutpat bibendum. Duis placerat malesuada libero, et feugiat massa feugiat sit amet. Donec auctor lacinia pellentesque. Donec molestie dolor bibendum, luctus lacus a, euismod lorem. Aliquam elementum quam id ex ornare auctor. Maecenas interdum, ligula eleifend viverra posuere, sem massa mattis velit, nec aliquet turpis urna vitae erat. Vestibulum eu purus nibh.
-Morbi suscipit ultricies turpis quis varius. Proin luctus, erat in feugiat pulvinar, dolor ante finibus magna, id lacinia lacus est at mi. Phasellus felis diam, rhoncus vitae maximus luctus, interdum a sapien. Vivamus iaculis vel ex id ornare. Donec condimentum ligula ac sollicitudin dictum. Sed ornare rutrum convallis. Integer sollicitudin tempus quam at suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in odio ut augue convallis posuere vitae in nisi. Ut a mattis turpis. Nam vulputate non sapien sit amet aliquet. Suspendisse quis erat felis. Maecenas lobortis porttitor pellentesque. Integer ullamcorper quis nisi vitae suscipit. Ut at est tempor, pretium tortor id, rutrum diam. Aenean tempor ullamcorper hendrerit.
+On peut utiliser toute la syntaxe Markdown ou HTML.
 
----
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris nec venenatis convallis. Vivamus ultrices fermentum dapibus. Sed quis erat maximus, scelerisque tellus eget, suscipit nisl. Donec vulputate purus ultricies dolor tristique bibendum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consectetur vel diam non eleifend. Proin ultrices leo pulvinar ipsum lobortis, vel sodales quam sagittis.
-
----
-
-## Dernière page
+- Par exemple,
+- une liste
+- d'éléments
 
 `;
 
@@ -156,12 +151,29 @@ function fixImageDimensionsCodiMD(md) {
 	return md;
 }
 
+function splitText(text) {
+	let result = [];
+	let parts = text.split('---');
+	let temp = '';
+  
+	for (let i = 0; i < parts.length; i++) {
+	  if (parts[i].endsWith('`')) {
+		temp += parts[i] + '---';
+	  } else {
+		temp += parts[i];
+		result.push(temp);
+		temp = '';
+	  }
+	}
+	return result;
+  }
+
 function parseMarkdown(markdownContent) {
 	let flipbookDataArray = [];
 
 	markdownContent = fixImageDimensionsCodiMD(markdownContent);
 
-	const markdownContentSplitted = markdownContent.split("---");
+	const markdownContentSplitted = splitText(markdownContent)
 	if (markdownContentSplitted.length > 2 && markdownContent.startsWith("---")) {
 		try {
 			yamlData = jsyaml.load(markdownContentSplitted[1]);
