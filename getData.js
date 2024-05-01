@@ -165,34 +165,71 @@ function fixImageDimensionsCodiMD(md) {
 
 function splitText(text) {
 	let result = [];
-	let parts = text.split('---');
-	let temp = '';
-  
+	let parts = text.split("---");
+	let temp = "";
+
 	for (let i = 0; i < parts.length; i++) {
-	  if (parts[i].endsWith('`')) {
-		temp += parts[i] + '---';
-	  } else {
-		temp += parts[i];
-		result.push(temp);
-		temp = '';
-	  }
+		if (parts[i].endsWith("`")) {
+			temp += parts[i] + "---";
+		} else {
+			temp += parts[i];
+			result.push(temp);
+			temp = "";
+		}
 	}
 	return result;
-  }
+}
+
+function loadScript(src) {
+	// Fonction pour charger des scripts
+	return new Promise((resolve, reject) => {
+		const script = document.createElement("script");
+		script.src = src;
+		script.onload = resolve;
+		script.onerror = reject;
+		document.head.appendChild(script);
+	});
+}
+function loadCSS(src) {
+	// Fonction pour charger des CSS
+	return new Promise((resolve, reject) => {
+		const styleElement = document.createElement("link");
+		styleElement.href = src;
+		styleElement.rel = "stylesheet";
+		styleElement.onload = resolve;
+		styleElement.onerror = reject;
+		document.head.appendChild(styleElement);
+	});
+}
 
 function parseMarkdown(markdownContent) {
 	let flipbookDataArray = [];
 
 	markdownContent = fixImageDimensionsCodiMD(markdownContent);
 
-	const markdownContentSplitted = splitText(markdownContent)
+	const markdownContentSplitted = splitText(markdownContent);
 	if (markdownContentSplitted.length > 2 && markdownContent.startsWith("---")) {
 		try {
 			yamlData = jsyaml.load(markdownContentSplitted[1]);
 			for (const property in yamlData) {
+				if (property == "maths") {
+					yamlMaths = yamlData[property];
+					if (yamlMaths === true) {
+						Promise.all([
+							loadScript(
+								"https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+							),
+							loadCSS(
+								"https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+							),
+						]);
+					}
+				}
 			}
 		} catch (e) {}
-		flipbookDataArray = markdownContentSplitted.shift();
+		markdownContentSplitted.shift();
+		markdownContentSplitted.shift();
+		flipbookDataArray = markdownContentSplitted;
 	} else {
 		flipbookDataArray = markdownContentSplitted;
 	}
