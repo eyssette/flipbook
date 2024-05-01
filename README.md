@@ -23,3 +23,5 @@ Flipbook repose sur les librairies suivantes :
 - [textFit](https://github.com/STRML/textFit) pour le calcul automatique de la taille de la police
 - [js-yaml](https://github.com/nodeca/js-yaml) pour la gestion des en-têtes yaml
 - [showdown](https://github.com/showdownjs/showdown) pour la conversion du markdown en html
+
+L'image de fond a été créée par [Delany Dean](https://www.flickr.com/people/21012477@N07) et partagée sous [licence CC-by-2.0](https://commons.wikimedia.org/wiki/File:Book_cover_fabric_-_Flickr_-_Delany_Dean.jpg).

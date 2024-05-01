@@ -38,7 +38,7 @@ body {
 #book {
 	background-color: #252121;
 	margin: auto;
-	background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ef/Book_cover_fabric_-_Flickr_-_Delany_Dean.jpg");
+	background-image: url("bookCover.jpg");
 	background-size: cover;
 }
 
