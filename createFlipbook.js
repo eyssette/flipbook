@@ -5,7 +5,7 @@ function createBook(w, h) {
 		w = (90 * window.innerWidth) / 100;
 		h = (80 * window.innerHeight) / 100;
 	}
-	
+
 	const pageFlip = new St.PageFlip(document.getElementById("book"), {
 		width: w,
 		height: h,
@@ -14,13 +14,12 @@ function createBook(w, h) {
 		flippingTime: 500,
 	});
 
-
-	const pages = document.querySelectorAll('.page');
+	const pages = document.querySelectorAll(".page");
 	for (const page of pages) {
-		page.style.width = w + 'px';
-		page.style.height = h + 'px';
+		page.style.width = w + "px";
+		page.style.height = h + "px";
 	}
-	textFit(pages, {multiLine: true,alignHoriz: true, alignVert: true})
+	textFit(pages, { multiLine: true, alignHoriz: true, alignVert: true });
 
 	pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
@@ -44,14 +43,14 @@ function createBook(w, h) {
 		}
 	});
 
-	let currentPage = '';
+	let currentPage = "";
 	pageFlip.on("flip", (e) => {
 		if (e.data == 0) {
-			currentPage = '1';
+			currentPage = "1";
 		} else if (e.data + 1 == numPages || portrait) {
 			currentPage = e.data + 1;
 		} else {
-			currentPage = (e.data + 1) + '-' + (e.data+2)
+			currentPage = e.data + 1 + "-" + (e.data + 2);
 		}
 		document.querySelector(".page-current").innerText = currentPage;
 	});
@@ -69,11 +68,11 @@ function calculateDimensions() {
 	return [bookWidth, bookHeight];
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function createFlipbook() {
 	const [bookWidth, bookHeight] = calculateDimensions();
 
 	createBook(bookWidth, bookHeight);
 	window.addEventListener("resize", function () {
 		location.reload();
 	});
-});
+}

@@ -41,7 +41,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris n
 
 `;
 
-
 // Extensions pour Showdown
 
 // Gestion des admonitions
@@ -102,7 +101,6 @@ function markdownToHTML(text) {
 	return html;
 }
 
-
 let flipbookData;
 
 function getMarkdownContent() {
@@ -140,22 +138,22 @@ function getMarkdownContent() {
 			.then((data) => {
 				md = data;
 				flipbookData = parseMarkdown(md);
-				/* console.log(flipbookData); */
 				createHTMLelements(flipbookData);
+				createFlipbook();
 			})
 			.catch((error) => console.error(error));
 	} else {
 		createHTMLelements(parseMarkdown(md));
+		createFlipbook();
 	}
 }
 
 getMarkdownContent();
 
-
 function fixImageDimensionsCodiMD(md) {
-	md = md.replaceAll(/=x([0-9]*)\)/g,"=*x$1)");
-	md = md.replaceAll(/=([0-9]*)x\)/g,"=$1x*)");
-	return md
+	md = md.replaceAll(/=x([0-9]*)\)/g, "=*x$1)");
+	md = md.replaceAll(/=([0-9]*)x\)/g, "=$1x*)");
+	return md;
 }
 
 function parseMarkdown(markdownContent) {
@@ -164,10 +162,7 @@ function parseMarkdown(markdownContent) {
 	markdownContent = fixImageDimensionsCodiMD(markdownContent);
 
 	const markdownContentSplitted = markdownContent.split("---");
-	if (
-		markdownContentSplitted.length > 2 &&
-		markdownContent.startsWith("---")
-	) {
+	if (markdownContentSplitted.length > 2 && markdownContent.startsWith("---")) {
 		try {
 			yamlData = jsyaml.load(markdownContentSplitted[1]);
 			for (const property in yamlData) {
@@ -181,15 +176,14 @@ function parseMarkdown(markdownContent) {
 	return flipbookDataArray;
 }
 
-
 function createHTMLelements(flipbookDataArray) {
 	for (let index = 0; index < flipbookDataArray.length; index++) {
 		const pageHTML = markdownToHTML(flipbookDataArray[index]);
-		const div = document.createElement('div');
+		const div = document.createElement("div");
 		div.innerHTML = pageHTML;
-		div.classList.add('page');
+		div.classList.add("page");
 		if (index === 0 || index === flipbookDataArray.length - 1) {
-			div.setAttribute('data-density', 'hard');
+			div.setAttribute("data-density", "hard");
 		}
 		document.body.appendChild(div);
 	}
