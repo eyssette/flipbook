@@ -10,7 +10,15 @@ Un outil pour créer facilement un livre numérique que l'on peut feuilleter en 
 
 ---
 
-On sépare simplement chaque page avec l'élément : \`\`\`---\`\`\`
+On peut créer son flipbook sur [CodiMD](https://codimd.apps.education.fr/). Le flipbook sera alors à cette adresse :
+
+\`\`\`md
+https://eyssette.
+forge.apps.education.fr/
+flipbook#URL_DU_FLIPBOOK
+\`\`\`
+
+Dans son fichier, on sépare simplement chaque page avec l'élément : \`\`\`---\`\`\`
 
 ---
 
@@ -25,6 +33,10 @@ Morbi justo diam, pellentesque quis porta ac, pulvinar nec elit. Ut dignissim ef
 ![](https://picsum.photos/500/300 =x300)
 
 On peut insérer des images, mais il faut leur donner une hauteur explicite pour que la police soit ajustée correctement.
+
+
+Par exemple :
+\`\`\`![](URL_image =​x300) \`\`\`
 
 ---
 
