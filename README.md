@@ -15,3 +15,11 @@ On peut insérer des images, mais il faut leur donner une hauteur explicite pour
 Par exemple : `![](URL_image =x300)`
 
 On peut utiliser toute la syntaxe Markdown ou HTML.
+
+## Crédits
+
+Flipbook repose sur les librairies suivantes : 
+- [StPageFlip](https://github.com/Nodlik/StPageFlip) pour l'effet de la page qui tourne
+- [textFit](https://github.com/STRML/textFit) pour le calcul automatique de la taille de la police
+- [js-yaml](https://github.com/nodeca/js-yaml) pour la gestion des en-têtes yaml
+- [showdown](https://github.com/showdownjs/showdown) pour la conversion du markdown en html
