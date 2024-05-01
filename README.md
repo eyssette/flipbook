@@ -1,2 +1,17 @@
-# flipbook
-Un outil pour créer facilement un livre numérique
+# Flipbook
+
+Flipbook est un outil libre et gratuit pour créer facilement un livre numérique que l'on peut feuilleter en ligne.
+
+On peut créer son flipbook sur [CodiMD](https://codimd.apps.education.fr/). Le flipbook sera alors à cette adresse :
+
+`https://eyssette.forge.apps.education.fr/flipbook#URL_DU_FLIPBOOK`
+
+Dans son fichier, on sépare simplement chaque page avec l'élément : `---`
+
+La taille de la police est ajustée automatiquement pour que le contenu tienne sur la page.
+
+On peut insérer des images, mais il faut leur donner une hauteur explicite pour que la police soit ajustée correctement.
+
+Par exemple : `![](URL_image =x300)`
+
+On peut utiliser toute la syntaxe Markdown ou HTML.
