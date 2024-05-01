@@ -1,6 +1,8 @@
+const portraitThreshold = 290;
+
 function createBook(w, h) {
 	let portrait = false;
-	if (w < 290) {
+	if (w < portraitThreshold) {
 		portrait = true;
 		w = (90 * window.innerWidth) / 100;
 		h = (80 * window.innerHeight) / 100;
@@ -68,9 +70,18 @@ function calculateDimensions() {
 	return [bookWidth, bookHeight];
 }
 
+function changeToHardPages() {
+	const pages = document.querySelectorAll(".page");
+	pages.forEach((page) => {
+		page.setAttribute("data-density", "hard");
+	});
+}
+
 function createFlipbook() {
 	const [bookWidth, bookHeight] = calculateDimensions();
-
+	if (bookWidth < portraitThreshold) {
+		changeToHardPages();
+	}
 	createBook(bookWidth, bookHeight);
 	window.addEventListener("resize", function () {
 		location.reload();
