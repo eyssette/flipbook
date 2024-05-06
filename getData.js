@@ -4,7 +4,7 @@ const shortcuts = [
 
 let md = `# Flipbook
 
-Un outil pour créer facilement un livre numérique que l'on peut feuilleter en ligne
+Un outil ++pour créer++ ==facilement== un livre numérique que l'on peut feuilleter en ligne
 
 ---
 
@@ -92,7 +92,19 @@ function showdownExtensionAdmonitions() {
 	];
 }
 
-// Gestion du markdown dans les réponses du chatbot
+// Gestion des éléments soulignés et surlignés
+const showdownExtensionUnderline = {
+    type: 'lang',
+    regex: /\+\+(.*?)\+\+/g,
+    replace: '<u>$1</u>'
+};
+const showdownExtensionHighlight = {
+    type: 'lang',
+    regex: /\=\=(.*?)\=\=/g,
+    replace: '<mark>$1</mark>'
+};
+
+// Gestion du markdown avec Showdown
 const converter = new showdown.Converter({
 	emoji: true,
 	parseImgDimensions: true,
@@ -100,7 +112,7 @@ const converter = new showdown.Converter({
 	simplifiedAutoLink: true,
 	tables: true,
 	openLinksInNewWindow: true,
-	extensions: [showdownExtensionAdmonitions],
+	extensions: [showdownExtensionAdmonitions, showdownExtensionUnderline, showdownExtensionHighlight],
 });
 
 function markdownToHTML(text) {

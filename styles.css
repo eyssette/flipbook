@@ -73,3 +73,7 @@ body {
 .page img {
 	max-width:90%;
 }
+
+mark {
+	background-color: #ffff6f;
+}
