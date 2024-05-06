@@ -4,7 +4,7 @@ const shortcuts = [
 
 let md = `# Flipbook
 
-Un outil ++pour créer++ ==facilement== un livre numérique que l'on peut feuilleter en ligne
+Un outil pour créer facilement un livre numérique que l'on peut feuilleter en ligne
 
 ---
 
