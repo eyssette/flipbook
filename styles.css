@@ -65,9 +65,16 @@ body {
 .page pre {
 	padding-left:20px!important;
 }
+.page pre, .page code {
+	background-color: #EEE;
+}
 
 .page ul, .page ol {
 	padding-left:1em;
+}
+
+.page ul li {
+	padding-left:0.25em;
 }
 
 @media screen and (max-width:500px) {
