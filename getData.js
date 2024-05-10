@@ -249,6 +249,13 @@ function parseMarkdown(markdownContent) {
 						]);
 					}
 				}
+				// Gestion des styles personnalisés
+				if (property == "style") {
+					yamlStyle = yamlData[property];
+					const styleElement = document.createElement("style");
+					styleElement.innerHTML = yamlStyle.replaceAll("\\","");
+					document.body.appendChild(styleElement);
+				}
 			}
 		} catch (e) {}
 		markdownContentSplitted.shift();

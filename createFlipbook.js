@@ -1,5 +1,6 @@
 const portraitThreshold = 290;
 let yamlMaths;
+let yamlStyle;
 const bookElement = document.getElementById("book");
 
 function convertLatexExpressions(string) {
