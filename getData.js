@@ -46,6 +46,22 @@ On peut utiliser toute la syntaxe Markdown ou HTML.
 - une liste
 - d'éléments
 
+---
+
+Configuration plus avancée : on peut ajouter un en-tête YAML pour accéder à certaines options.
+
+\`\`\`
+\`\`​\`​
+maths: true
+style: p{color:red}
+\`​\`​\`​
+\`\`\`
+\`maths: true\` permet d'utiliser des formules mathématiques en Latex
+
+\`style: p{color:red}\` permet d'ajouter des styles personnalisés en CSS
+
+---
+
 `;
 
 // Extensions pour Showdown

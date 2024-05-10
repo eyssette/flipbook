@@ -53,10 +53,17 @@ body {
 	overflow:hidden;
 }
 
-.page *:not(ul) {
+.page *:not(ul):not(a) {
 	padding-left: 20px;
 	padding-right: 20px;
 	text-align: left
+}
+
+.page code {
+	padding:0!important;
+}
+.page pre {
+	padding-left:20px!important;
 }
 
 .page ul, .page ol {
