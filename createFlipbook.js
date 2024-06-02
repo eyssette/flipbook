@@ -123,7 +123,22 @@ function createFlipbook() {
 			});
 		}
 	}, 200);
+
+	// Gestion du redimensionnement
+	// On ne redimensionne pas si on a cliqué sur un élément (comme une vidéo) pour passer en plein écran ou revenir en écran normal
+	let previousWindowWidth = window.innerWidth;
+	function onResize() {
+		newWindowWidth = window.innerWidth;
+		if (!document.fullscreenElement && previousWindowWidth != newWindowWidth) {
+			location.reload();
+		}
+		if (!document.fullscreenElement) {
+			previousWindowWidth = newWindowWidth;
+		}
+	}
+	let timeout;
 	window.addEventListener("resize", function () {
-		location.reload();
+		clearTimeout(timeout);
+		timeout = setTimeout(onResize, 250);
 	});
 }
