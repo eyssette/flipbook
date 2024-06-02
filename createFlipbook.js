@@ -32,25 +32,24 @@ function convertLatexExpressions(string) {
 	return string;
 }
 
-
 // Pour sortir d'une iframe : permet de stopper la vidéo, et remet le focus sur le livre pour pouvoir le contrôler avec le clavier
 let pages;
 function resetIframe(iframe) {
 	const srcIframe = iframe.src;
 	iframe.blur();
-	iframe.src = '';
+	iframe.src = "";
 	iframe.src = srcIframe;
 }
 function focusOutIframe() {
 	activeIframe = document.activeElement;
-	if(activeIframe.type == "iframe") {
-		resetIframe(activeIframe)
+	if (activeIframe.type == "iframe") {
+		resetIframe(activeIframe);
 	} else {
 		for (const page of pages) {
-			if(page.style.display == "block") {
-				iframe = page.querySelector('iframe')
-				if(iframe) {
-					resetIframe(iframe)
+			if (page.style.display == "block") {
+				iframe = page.querySelector("iframe");
+				if (iframe) {
+					resetIframe(iframe);
 				}
 			}
 		}
@@ -58,12 +57,14 @@ function focusOutIframe() {
 }
 
 function createBook(w, h) {
-	pages = document.querySelectorAll('.page');
+	pages = document.querySelectorAll(".page");
 
 	const hash = window.location.hash.substring(1);
 	const baseURL = window.location.origin + window.location.pathname;
 	const params = new URLSearchParams(document.location.search);
-	const pageParam = parseInt(params.get("page")) ? parseInt(params.get("page")) : 0; 
+	const pageParam = parseInt(params.get("page"))
+		? parseInt(params.get("page"))
+		: 0;
 	let actualPage = pageParam;
 	let portrait = false;
 	if (w < portraitThreshold) {
@@ -95,12 +96,12 @@ function createBook(w, h) {
 	// On change l'affichage de l'URL sans recharger la page
 	function changeURL(page) {
 		const newURL = baseURL + "?page=" + page + "#" + hash;
-		history.pushState({ path: newURL  }, "", newURL);
+		history.pushState({ path: newURL }, "", newURL);
 	}
 
 	function gotToPreviousPage() {
 		if (actualPage > 1) {
-			actualPage = actualPage-2;
+			actualPage = actualPage - 2;
 		} else {
 			actualPage = 0;
 		}
@@ -109,29 +110,29 @@ function createBook(w, h) {
 	}
 
 	function gotToNextPage() {
-		if(actualPage == 0) {
+		if (actualPage == 0) {
 			actualPage = actualPage + 1;
 		} else {
-			actualPage = actualPage+2 <= numPages ? actualPage+2 : actualPage;
+			actualPage = actualPage + 2 <= numPages ? actualPage + 2 : actualPage;
 		}
 		pageFlip.flipNext();
 		changeURL(actualPage);
 	}
 
 	document.querySelector(".btn-prev").addEventListener("click", () => {
-		gotToPreviousPage()
+		gotToPreviousPage();
 	});
 
 	document.querySelector(".btn-next").addEventListener("click", () => {
-		gotToNextPage()
+		gotToNextPage();
 	});
 
 	document.addEventListener("keydown", function (event) {
 		if (event.key === "ArrowLeft") {
-			gotToPreviousPage()
+			gotToPreviousPage();
 		}
 		if (event.key === "ArrowRight") {
-			gotToNextPage()
+			gotToNextPage();
 		}
 	});
 
