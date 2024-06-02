@@ -32,7 +32,34 @@ function convertLatexExpressions(string) {
 	return string;
 }
 
+
+// Pour sortir d'une iframe : permet de stopper la vidéo, et remet le focus sur le livre pour pouvoir le contrôler avec le clavier
+let pages;
+function resetIframe(iframe) {
+	const srcIframe = iframe.src;
+	iframe.blur();
+	iframe.src = '';
+	iframe.src = srcIframe;
+}
+function focusOutIframe() {
+	activeIframe = document.activeElement;
+	if(activeIframe.type == "iframe") {
+		resetIframe(activeIframe)
+	} else {
+		for (const page of pages) {
+			if(page.style.display == "block") {
+				iframe = page.querySelector('iframe')
+				if(iframe) {
+					resetIframe(iframe)
+				}
+			}
+		}
+	}
+}
+
 function createBook(w, h) {
+	pages = document.querySelectorAll('.page');
+
 	const hash = window.location.hash.substring(1);
 	const baseURL = window.location.origin + window.location.pathname;
 	const params = new URLSearchParams(document.location.search);
@@ -54,7 +81,6 @@ function createBook(w, h) {
 		startPage: pageParam,
 	});
 
-	const pages = document.querySelectorAll(".page");
 	for (const page of pages) {
 		page.style.width = w + "px";
 		page.style.height = h + "px";
@@ -111,6 +137,8 @@ function createBook(w, h) {
 
 	let currentPage = "";
 	pageFlip.on("flip", (e) => {
+		// On stoppe le focus sur l'iframe s'il y en a une qui est active
+		focusOutIframe();
 		if (e.data == 0) {
 			currentPage = "1";
 		} else if (e.data + 1 == numPages || portrait) {
@@ -165,6 +193,7 @@ function createFlipbook() {
 			location.reload();
 		}
 		if (!document.fullscreenElement) {
+			focusOutIframe();
 			previousWindowWidth = newWindowWidth;
 		}
 	}
