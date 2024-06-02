@@ -33,6 +33,11 @@ function convertLatexExpressions(string) {
 }
 
 function createBook(w, h) {
+	const hash = window.location.hash.substring(1);
+	const baseURL = window.location.origin + window.location.pathname;
+	const params = new URLSearchParams(document.location.search);
+	const pageParam = parseInt(params.get("page")) ? parseInt(params.get("page")) : 0; 
+	let actualPage = pageParam;
 	let portrait = false;
 	if (w < portraitThreshold) {
 		portrait = true;
@@ -46,6 +51,7 @@ function createBook(w, h) {
 		showCover: true,
 		usePortrait: portrait,
 		flippingTime: 500,
+		startPage: pageParam,
 	});
 
 	const pages = document.querySelectorAll(".page");
@@ -60,20 +66,46 @@ function createBook(w, h) {
 	const numPages = pageFlip.getPageCount();
 	document.querySelector(".page-total").innerText = numPages;
 
-	document.querySelector(".btn-prev").addEventListener("click", () => {
+	// On change l'affichage de l'URL sans recharger la page
+	function changeURL(page) {
+		const newURL = baseURL + "?page=" + page + "#" + hash;
+		history.pushState({ path: newURL  }, "", newURL);
+	}
+
+	function gotToPreviousPage() {
+		if (actualPage > 1) {
+			actualPage = actualPage-2;
+		} else {
+			actualPage = 0;
+		}
 		pageFlip.flipPrev();
+		changeURL(actualPage);
+	}
+
+	function gotToNextPage() {
+		if(actualPage == 0) {
+			actualPage = actualPage + 1;
+		} else {
+			actualPage = actualPage+2 <= numPages ? actualPage+2 : actualPage;
+		}
+		pageFlip.flipNext();
+		changeURL(actualPage);
+	}
+
+	document.querySelector(".btn-prev").addEventListener("click", () => {
+		gotToPreviousPage()
 	});
 
 	document.querySelector(".btn-next").addEventListener("click", () => {
-		pageFlip.flipNext();
+		gotToNextPage()
 	});
 
 	document.addEventListener("keydown", function (event) {
 		if (event.key === "ArrowLeft") {
-			pageFlip.flipPrev();
+			gotToPreviousPage()
 		}
 		if (event.key === "ArrowRight") {
-			pageFlip.flipNext();
+			gotToNextPage()
 		}
 	});
 
