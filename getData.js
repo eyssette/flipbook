@@ -8,14 +8,18 @@ Un outil pour créer facilement un livre numérique que l'on peut feuilleter en 
 
 ---
 
+On peut créer son flipbook sur [CodiMD](https://codimd.apps.education.fr/).
+
+On peut aussi utiliser d'autres outils accessibles aux élèves comme [Digipage](https://digipage.app/), [Framapad](https://framapad.org/abc/fr/) ou [Hedgedoc](https://demo.hedgedoc.org/).
+
 ---
 
-On peut créer son flipbook sur [CodiMD](https://codimd.apps.education.fr/). Le flipbook sera alors à cette adresse :
+Le flipbook sera alors à cette adresse :
 
 \`\`\`md
-https://eyssette.
+https://flipbook.
 forge.apps.education.fr/
-flipbook#URL_DU_FLIPBOOK
+#URL_DU_FLIPBOOK
 \`\`\`
 
 Dans son fichier, on sépare simplement chaque page avec l'élément : \`\`\`---\`\`\`
