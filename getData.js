@@ -2,9 +2,15 @@ const shortcuts = [
 	["modèle", "https://codimd.apps.education.fr/NuU3detpS0amHKFZ1ImX8Q"],
 ];
 
-let md = `# Flipbook
+let md = `---
+style: small{font-size:0.7em}
+---
 
-Un outil pour créer facilement un livre numérique que l'on peut feuilleter en ligne
+# Flipbook
+
+Un outil [libre](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr) & gratuit pour créer facilement un livre numérique que l'on peut feuilleter en ligne
+
+<small>Créé par : [Cédric Eyssette](https://eyssette.forge.apps.education.fr/)</small>
 
 ---
 
@@ -18,7 +24,8 @@ Le flipbook sera alors à cette adresse :
 
 \`\`\`md
 https://flipbook.
-forge.apps.education.fr/
+forge.apps.
+education.fr/
 #URL_DU_FLIPBOOK
 \`\`\`
 
