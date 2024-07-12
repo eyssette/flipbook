@@ -279,9 +279,15 @@ function parseMarkdown(markdownContent) {
 }
 
 function createHTMLelements(flipbookDataArray) {
+	const regexBackgroundImage = /.*src="(.*?)" alt="bg.*/
 	for (let index = 0; index < flipbookDataArray.length; index++) {
-		const pageHTML = markdownToHTML(flipbookDataArray[index]);
+		let pageHTML = markdownToHTML(flipbookDataArray[index]);
 		const div = document.createElement("div");
+		if(pageHTML.includes('alt="bg')) {
+			pageHTML = pageHTML.replace(regexBackgroundImage,function(match, srcImage) {
+				return '<style>div.page:nth-of-type('+(index+1)+'){background-image:url("'+srcImage+'"); background-size: contain; background-repeat: no-repeat; background-position: center center;}</style>'
+			})
+		}
 		div.innerHTML = pageHTML;
 		div.classList.add("page");
 		if (index === 0 || index === flipbookDataArray.length - 1) {
