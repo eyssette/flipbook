@@ -31,6 +31,15 @@ education.fr/
 
 Dans son fichier, on sépare simplement chaque page avec l'élément : \`\`\`---\`\`\`
 
+
+---
+
+On peut utiliser toute la syntaxe Markdown ou HTML.
+
+- Par exemple,
+- une liste
+- d'éléments
+
 ---
 
 ## La taille de la police est ajustée automatiquement pour que le contenu tienne sur la page.
@@ -41,14 +50,11 @@ Morbi justo diam, pellentesque quis porta ac, pulvinar nec elit. Ut dignissim ef
 
 ---
 
-
 ## Images
 
 On peut insérer des images, mais il faut leur donner une hauteur pour que la police soit ajustée correctement.
 
-![h:50%](https://picsum.photos/500/300)
-
----
+![h:20%](https://picsum.photos/500/300)
 
 On peut indiquer une dimension en pixels :
 \`![](URL_image =x300)\`
@@ -58,14 +64,6 @@ Ou en pourcentage de la hauteur de l'écran :
 
 On peut enfin utiliser une image en fond de page en ajoutant \`bg\` au début du \`alt\` de l'image.
 \`![bg](URL_image)\`
-
----
-
-On peut utiliser toute la syntaxe Markdown ou HTML.
-
-- Par exemple,
-- une liste
-- d'éléments
 
 ---
 
