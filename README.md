@@ -10,11 +10,27 @@ Dans son fichier, on sépare simplement chaque page avec l'élément : `---`
 
 La taille de la police est ajustée automatiquement pour que le contenu tienne sur la page.
 
-On peut insérer des images, mais il faut leur donner une hauteur explicite pour que la police soit ajustée correctement.
+On peut utiliser toute la syntaxe Markdown ou HTML.
+
+## Images
+
+On peut insérer des images, mais il faut leur donner une hauteur pour que la police soit ajustée correctement.
+
+On peut indiquer une dimension en pixels :
 
 Par exemple : `![](URL_image =x300)`
 
-On peut utiliser toute la syntaxe Markdown ou HTML.
+Ou en pourcentage de la hauteur de la page :
+
+On peut insérer des images, mais il faut leur donner une hauteur explicite pour que la police soit ajustée correctement.
+
+Par exemple : `![h:40%](URL_image)`
+
+On peut enfin utiliser une image en fond de page en ajoutant `bg` au début du `alt` de l'image.
+
+Par exemple : `![bg](URL_image)`
+
+
 
 ## Configuration plus avancée
 

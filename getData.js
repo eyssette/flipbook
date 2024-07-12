@@ -41,13 +41,23 @@ Morbi justo diam, pellentesque quis porta ac, pulvinar nec elit. Ut dignissim ef
 
 ---
 
-![](https://picsum.photos/500/300 =x300)
 
-On peut insérer des images, mais il faut leur donner une hauteur explicite pour que la police soit ajustée correctement.
+## Images
 
+On peut insérer des images, mais il faut leur donner une hauteur pour que la police soit ajustée correctement.
 
-Par exemple :
-\`\`\`![](URL_image =​x300) \`\`\`
+![h:50%](https://picsum.photos/500/300)
+
+---
+
+On peut indiquer une dimension en pixels :
+\`![](URL_image =x300)\`
+
+Ou en pourcentage de la hauteur de l'écran :
+\`![h:40%](URL_image)\`
+
+On peut enfin utiliser une image en fond de page en ajoutant \`bg\` au début du \`alt\` de l'image.
+\`![bg](URL_image)\`
 
 ---
 
