@@ -2,20 +2,31 @@ const shortcuts = [
 	["modèle", "https://codimd.apps.education.fr/NuU3detpS0amHKFZ1ImX8Q"],
 ];
 
-let md = `# Flipbook
+let md = `---
+style: small{font-size:0.7em}
+---
 
-Un outil pour créer facilement un livre numérique que l'on peut feuilleter en ligne
+# Flipbook
+
+Un outil [libre](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr) & gratuit pour créer facilement un livre numérique que l'on peut feuilleter en ligne
+
+<small>Créé par : [Cédric Eyssette](https://eyssette.forge.apps.education.fr/)</small>
 
 ---
 
+On peut créer son flipbook sur [CodiMD](https://codimd.apps.education.fr/).
+
+On peut aussi utiliser d'autres outils accessibles aux élèves comme [Digipage](https://digipage.app/), [Framapad](https://framapad.org/abc/fr/) ou [Hedgedoc](https://demo.hedgedoc.org/).
+
 ---
 
-On peut créer son flipbook sur [CodiMD](https://codimd.apps.education.fr/). Le flipbook sera alors à cette adresse :
+Le flipbook sera alors à cette adresse :
 
 \`\`\`md
-https://eyssette.
-forge.apps.education.fr/
-flipbook#URL_DU_FLIPBOOK
+https://flipbook.
+forge.apps.
+education.fr/
+#URL_DU_FLIPBOOK
 \`\`\`
 
 Dans son fichier, on sépare simplement chaque page avec l'élément : \`\`\`---\`\`\`
@@ -148,6 +159,11 @@ function getMarkdownContent() {
 	// Récupération du markdown externe
 	let urlMD = window.location.hash.substring(1); // Récupère l'URL du hashtag sans le #
 	if (urlMD !== "") {
+		// Vérification de la présence d'un raccourci
+		const shortcut = shortcuts.find((element) => element[0] == urlMD);
+		if (shortcut) {
+			urlMD = shortcut[1];
+		}
 		// Gestion des fichiers hébergés sur github
 		if (urlMD.startsWith("https://github.com")) {
 			urlMD = urlMD.replace(
@@ -167,11 +183,6 @@ function getMarkdownContent() {
 		// gestion des fichiers hébergés sur framapad
 		if (urlMD.includes('framapad') && !urlMD.endsWith('/export/txt')) {
 			urlMD = urlMD.replace(/\?.*/,'') + '/export/txt';
-		}
-		// Vérification de la présence d'un raccourci
-		shortcut = shortcuts.find((element) => element[0] == urlMD);
-		if (shortcut) {
-			urlMD = shortcut[1];
 		}
 		// Récupération du contenu du fichier
 		fetch(urlMD)
