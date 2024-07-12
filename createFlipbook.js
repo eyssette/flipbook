@@ -86,6 +86,17 @@ function createBook(w, h) {
 		page.style.width = w + "px";
 		page.style.height = h + "px";
 	}
+
+	const regexSetImageHeight = /h:(.*)?%/
+	imagesToResize = document.querySelectorAll('img[alt*="h:"]')
+	imagesToResize.forEach((image) => {
+		setImageHeight = image.alt.match(regexSetImageHeight) ? image.alt.match(regexSetImageHeight)[1] : undefined;
+		if(setImageHeight) {
+			image.style.height=setImageHeight+"vh";
+			image.style.maxWidth=''
+		}
+	})
+
 	textFit(pages, { multiLine: true, alignHoriz: true, alignVert: true });
 
 	pageFlip.loadFromHTML(document.querySelectorAll(".page"));

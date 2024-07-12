@@ -86,6 +86,7 @@ body {
 
 .page img {
 	max-width:90%;
+	object-fit: contain;
 }
 
 mark {
