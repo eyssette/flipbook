@@ -83,8 +83,8 @@ style: p{color:red}
 
 ---
 
-On peut insérer un sommaire en écrivant :
-\`!​summary\`
+On peut insérer un sommaire en écrivant : \`!​summary\`. Seuls les titres de niveau 2 seront pris en compte dans le sommaire.
+
 
 Pour avoir un lien vers une page spécifique, on écrit :
 \`[lien vers page 5](?page=5)\`
