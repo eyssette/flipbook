@@ -83,6 +83,16 @@ style: p{color:red}
 
 ---
 
+On peut insérer un sommaire en écrivant :
+\`!​summary\`
+
+Pour avoir un lien vers une page spécifique, on écrit :
+\`[lien vers page 5](?page=5)\`
+
+Exemple :
+[lien vers la page 3](?page=3)
+
+
 `;
 
 // Extensions pour Showdown
@@ -162,10 +172,11 @@ function markdownToHTML(text) {
 }
 
 let flipbookData;
+let urlMD
 
 function getMarkdownContent() {
 	// Récupération du markdown externe
-	let urlMD = window.location.hash.substring(1); // Récupère l'URL du hashtag sans le #
+	urlMD = window.location.hash.substring(1); // Récupère l'URL du hashtag sans le #
 	if (urlMD !== "") {
 		// Vérification de la présence d'un raccourci
 		const shortcut = shortcuts.find((element) => element[0] == urlMD);
@@ -290,6 +301,24 @@ function parseMarkdown(markdownContent) {
 		markdownContentSplitted.shift();
 		markdownContentSplitted.shift();
 		flipbookDataArray = markdownContentSplitted;
+		if (markdownContent.includes('!summary')) {
+			let summaryPageNumber = -1;
+			const regexTitleH2 = /## (.*)/
+			let titlesH2 = []
+			for (const [pageNumber,pageContent] of flipbookDataArray.entries()) {
+				if (summaryPageNumber>-1) {
+					const findTitlesH2 = pageContent.match(regexTitleH2)
+					if(findTitlesH2) {
+						const titleH2 = findTitlesH2[1]
+						titlesH2.push('<li><a href="?page='+(pageNumber+1)+'">'+titleH2+'</a></li>')
+					}
+				} else if(pageContent.includes('!summary')) {
+					summaryPageNumber = pageNumber;
+				}
+			}
+			const summaryContent = '<ul class="summary">' + titlesH2.join('\n') + '</ul>';
+			flipbookDataArray[summaryPageNumber] = flipbookDataArray[summaryPageNumber].replace('!summary',summaryContent)
+		}
 	} else {
 		flipbookDataArray = markdownContentSplitted;
 	}

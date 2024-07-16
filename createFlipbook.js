@@ -1,3 +1,4 @@
+let portrait = false;
 const portraitThreshold = 290;
 let yamlMaths;
 let yamlStyle;
@@ -56,6 +57,23 @@ function focusOutIframe() {
 	}
 }
 
+function isEven(n) {
+	return n % 2 == 0;
+}
+
+function updateCurrentPageCounter(numberPage,totalNumberPage) { 
+	numberPage = isEven(numberPage) ? numberPage : numberPage+ 1;
+	let currentPage = "";
+	if (numberPage == 0) {
+		currentPage = "1";
+	} else if (numberPage == totalNumberPage || portrait) {
+		currentPage = numberPage;
+	} else {
+		currentPage = numberPage + "-" + (numberPage + 1);
+	}
+	document.querySelector(".page-current").innerText = currentPage;
+}
+
 function createBook(w, h) {
 	pages = document.querySelectorAll(".page");
 
@@ -65,8 +83,7 @@ function createBook(w, h) {
 	const pageParam = parseInt(params.get("page"))
 		? parseInt(params.get("page"))
 		: 0;
-	let actualPage = pageParam;
-	let portrait = false;
+	let actualPage = isEven(pageParam) ? pageParam : pageParam -1;
 	if (w < portraitThreshold) {
 		portrait = true;
 		w = (90 * window.innerWidth) / 100;
@@ -79,7 +96,7 @@ function createBook(w, h) {
 		showCover: true,
 		usePortrait: portrait,
 		flippingTime: 500,
-		startPage: pageParam,
+		startPage: actualPage,
 	});
 
 	for (const page of pages) {
@@ -103,6 +120,7 @@ function createBook(w, h) {
 
 	const numPages = pageFlip.getPageCount();
 	document.querySelector(".page-total").innerText = numPages;
+	updateCurrentPageCounter(actualPage,numPages)
 
 	// On change l'affichage de l'URL sans recharger la page
 	function changeURL(page) {
@@ -122,7 +140,7 @@ function createBook(w, h) {
 
 	function gotToNextPage() {
 		if (actualPage == 0) {
-			actualPage = actualPage + 1;
+			actualPage = actualPage + 2;
 		} else {
 			actualPage = actualPage + 2 <= numPages ? actualPage + 2 : actualPage;
 		}
@@ -147,19 +165,29 @@ function createBook(w, h) {
 		}
 	});
 
-	let currentPage = "";
 	pageFlip.on("flip", (e) => {
 		// On stoppe le focus sur l'iframe s'il y en a une qui est active
 		focusOutIframe();
-		if (e.data == 0) {
-			currentPage = "1";
-		} else if (e.data + 1 == numPages || portrait) {
-			currentPage = e.data + 1;
-		} else {
-			currentPage = e.data + 1 + "-" + (e.data + 2);
-		}
-		document.querySelector(".page-current").innerText = currentPage;
+		updateCurrentPageCounter(e.data,numPages)
 	});
+
+	const goToPageLinksElements = document.querySelectorAll('a[href*="?page"]')
+	const regexGoToPage = /\?page=([0-9]+)/
+	for (const goToPageLinkElement of goToPageLinksElements) {
+		goToPageLinkElement.addEventListener("click",(e) => {
+			e.preventDefault();
+			const link = e.target.href;
+			const pageNumberMatch = link.match(regexGoToPage);
+			if(pageNumberMatch) {
+				const pageNumber = parseInt(pageNumberMatch[1]);
+				pageFlip.flip(pageNumber-1);
+				changeURL(pageNumber);
+				actualPage = isEven(pageNumber) ? pageNumber : pageNumber -1;
+				updateCurrentPageCounter(actualPage,numPages);
+			}
+		})
+	}
+
 }
 
 function calculateDimensions() {
