@@ -23,15 +23,16 @@ body {
 	/* height:95vh; */
 }
 
-.controls {
+#controls {
 	margin: 1em auto;
 	text-align: center;
 	color:white;
 	background-color: #252121;
 	z-index: 1;
+	visibility: hidden;
 }
 
-.controls button {
+#controls button {
 	margin: auto 1em;
 }
 

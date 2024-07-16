@@ -118,6 +118,8 @@ function createBook(w, h) {
 
 	pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
+	
+
 	const numPages = pageFlip.getPageCount();
 	document.querySelector(".page-total").innerText = numPages;
 	updateCurrentPageCounter(actualPage,numPages)
@@ -188,6 +190,8 @@ function createBook(w, h) {
 		})
 	}
 
+	
+
 }
 
 function calculateDimensions() {
@@ -223,6 +227,8 @@ function createFlipbook() {
 			});
 		}
 	}, 200);
+	const controlsElement = document.getElementById('controls');
+	controlsElement.style.visibility = "visible";
 
 	// Gestion du redimensionnement
 	// On ne redimensionne pas si on a cliqué sur un élément (comme une vidéo) pour passer en plein écran ou revenir en écran normal
