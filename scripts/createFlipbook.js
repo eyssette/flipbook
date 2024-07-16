@@ -62,7 +62,7 @@ function isEven(n) {
 }
 
 function updateCurrentPageCounter(numberPage,totalNumberPage) { 
-	numberPage = isEven(numberPage) ? numberPage : numberPage+ 1;
+	numberPage = (isEven(numberPage) && !portrait) ? numberPage : numberPage+ 1;
 	let currentPage = "";
 	if (numberPage == 0) {
 		currentPage = "1";
@@ -79,16 +79,21 @@ function createBook(w, h) {
 
 	const hash = window.location.hash.substring(1);
 	const baseURL = window.location.origin + window.location.pathname;
-	const params = new URLSearchParams(document.location.search);
-	const pageParam = parseInt(params.get("page"))
-		? parseInt(params.get("page"))
-		: 0;
-	let actualPage = isEven(pageParam) ? pageParam : pageParam -1;
+	
 	if (w < portraitThreshold) {
 		portrait = true;
 		w = (90 * window.innerWidth) / 100;
 		h = (80 * window.innerHeight) / 100;
 	}
+	const params = new URLSearchParams(document.location.search);
+	let pageParam = parseInt(params.get("page"))
+		? parseInt(params.get("page"))
+		: 0;
+	if (portrait && pageParam == 0) {
+		pageParam = 1;
+		changeURL(1)
+	}
+	let actualPage = portrait ? pageParam-1 : isEven(pageParam) ? pageParam : pageParam -1;
 
 	const pageFlip = new St.PageFlip(bookElement, {
 		width: w,
@@ -131,23 +136,40 @@ function createBook(w, h) {
 	}
 
 	function gotToPreviousPage() {
-		if (actualPage > 1) {
-			actualPage = actualPage - 2;
+		if (portrait) {
+			if (actualPage > 1) {
+				actualPage = actualPage - 1;
+				changeURL(actualPage+1);
+			} else {
+				actualPage = 0;
+				changeURL(1);
+			}
 		} else {
-			actualPage = 0;
+			if (actualPage > 1) {
+				actualPage = actualPage - 2;
+			} else {
+				actualPage = 0;
+			}
+			changeURL(actualPage);
 		}
 		pageFlip.flipPrev();
-		changeURL(actualPage);
 	}
 
 	function gotToNextPage() {
-		if (actualPage == 0) {
-			actualPage = actualPage + 2;
+		if (portrait) {
+			if (actualPage + 1 < numPages) {
+				actualPage = actualPage + 1;
+				changeURL(actualPage+1);
+			}
 		} else {
-			actualPage = actualPage + 2 <= numPages ? actualPage + 2 : actualPage;
+			if (actualPage == 0) {
+				actualPage = actualPage + 2;
+			} else {
+				actualPage = actualPage + 2 <= numPages ? actualPage + 2 : actualPage;
+			}
+			changeURL(actualPage);
 		}
 		pageFlip.flipNext();
-		changeURL(actualPage);
 	}
 
 	document.querySelector(".btn-prev").addEventListener("click", () => {
