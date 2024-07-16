@@ -167,7 +167,9 @@ const converter = new showdown.Converter({
 });
 
 function markdownToHTML(text) {
-	const html = converter.makeHtml(text);
+	let html = converter.makeHtml(text);
+	// Optimisation de l'affichage des images
+	html = html.replaceAll("<img ",'<img loading="lazy" ')
 	return html;
 }
 

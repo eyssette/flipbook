@@ -38,7 +38,7 @@ body {
 #book {
 	background-color: #252121;
 	margin: auto;
-	background-image: url("bookCover.jpg");
+	background-image: url("../bookCover.jpg");
 	background-size: cover;
 }
 
