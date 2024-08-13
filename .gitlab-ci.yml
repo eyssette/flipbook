@@ -9,7 +9,7 @@ pages:
     - mkdir -p .public .public/css .public/externals
     - cp favicon.ico index.html script.min.js bookCover.jpg .public/
     - cp css/styles.min.css .public/css/
-    - cp externals/* .public/externals/
+    - cp js/externals/textFit.js .public/js/externals/
     - mv .public public
     - for ext in $FILES_TO_COMPRESS; do find public -type f -name "*.$ext" -exec gzip -f -k {} \;; done
     - for ext in $FILES_TO_COMPRESS; do find public -type f -name "*.$ext" -exec brotli -f -k {} \;; done
