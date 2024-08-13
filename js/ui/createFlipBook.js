@@ -1,37 +1,10 @@
+import { PageFlip } from "../externals/page-flip.module";
+import { convertLatexExpressions } from "../processMarkdown/convertLatex";
+
 let portrait = false;
 const portraitThreshold = 290;
 let yamlMaths;
-let yamlStyle;
 const bookElement = document.getElementById("book");
-
-function convertLatexExpressions(string) {
-	string = string
-		.replace(/\$\$(.*?)\$\$/g, "&#92;[$1&#92;]")
-		.replace(/\$(.*?)\$/g, "&#92;($1&#92;)");
-	let expressionsLatex = string.match(
-		new RegExp(/&#92;\[.*?&#92;\]|&#92;\(.*?&#92;\)/g)
-	);
-	if (expressionsLatex) {
-		// On n'utilise Katex que s'il y a des expressions en Latex dans le Markdown
-		for (let expressionLatex of expressionsLatex) {
-			// On vérifie si le mode d'affichage de l'expression (inline ou block)
-			const inlineMaths = expressionLatex.includes("&#92;[") ? true : false;
-			// On récupère la formule mathématique
-			let mathInExpressionLatex = expressionLatex
-				.replace("&#92;[", "")
-				.replace("&#92;]", "");
-			mathInExpressionLatex = mathInExpressionLatex
-				.replace("&#92;(", "")
-				.replace("&#92;)", "");
-			// On convertit la formule mathématique en HTML avec Katex
-			stringWithLatex = katex.renderToString(mathInExpressionLatex, {
-				displayMode: inlineMaths,
-			});
-			string = string.replace(expressionLatex, stringWithLatex);
-		}
-	}
-	return string;
-}
 
 // Pour sortir d'une iframe : permet de stopper la vidéo, et remet le focus sur le livre pour pouvoir le contrôler avec le clavier
 let pages;
@@ -42,13 +15,13 @@ function resetIframe(iframe) {
 	iframe.src = srcIframe;
 }
 function focusOutIframe() {
-	activeIframe = document.activeElement;
+	const activeIframe = document.activeElement;
 	if (activeIframe.type == "iframe") {
 		resetIframe(activeIframe);
 	} else {
 		for (const page of pages) {
 			if (page.style.display == "block") {
-				iframe = page.querySelector("iframe");
+				const iframe = page.querySelector("iframe");
 				if (iframe) {
 					resetIframe(iframe);
 				}
@@ -61,8 +34,8 @@ function isEven(n) {
 	return n % 2 == 0;
 }
 
-function updateCurrentPageCounter(numberPage,totalNumberPage) { 
-	numberPage = (isEven(numberPage) && !portrait) ? numberPage : numberPage+ 1;
+function updateCurrentPageCounter(numberPage, totalNumberPage) {
+	numberPage = isEven(numberPage) && !portrait ? numberPage : numberPage + 1;
 	let currentPage = "";
 	if (numberPage == 0) {
 		currentPage = "1";
@@ -79,7 +52,7 @@ function createBook(w, h) {
 
 	const hash = window.location.hash.substring(1);
 	const baseURL = window.location.origin + window.location.pathname;
-	
+
 	if (w < portraitThreshold) {
 		portrait = true;
 		w = (90 * window.innerWidth) / 100;
@@ -91,11 +64,15 @@ function createBook(w, h) {
 		: 0;
 	if (portrait && pageParam == 0) {
 		pageParam = 1;
-		changeURL(1)
+		changeURL(1);
 	}
-	let actualPage = portrait ? pageParam-1 : isEven(pageParam) ? pageParam : pageParam -1;
+	let actualPage = portrait
+		? pageParam - 1
+		: isEven(pageParam)
+			? pageParam
+			: pageParam - 1;
 
-	const pageFlip = new St.PageFlip(bookElement, {
+	const pageFlip = new PageFlip(bookElement, {
 		width: w,
 		height: h,
 		showCover: true,
@@ -109,25 +86,25 @@ function createBook(w, h) {
 		page.style.height = h + "px";
 	}
 
-	const regexSetImageHeight = /h:(.*)?%/
-	imagesToResize = document.querySelectorAll('img[alt*="h:"]')
+	const regexSetImageHeight = /h:(.*)?%/;
+	const imagesToResize = document.querySelectorAll('img[alt*="h:"]');
 	imagesToResize.forEach((image) => {
-		setImageHeight = image.alt.match(regexSetImageHeight) ? image.alt.match(regexSetImageHeight)[1] : undefined;
-		if(setImageHeight) {
-			image.style.height=setImageHeight+"vh";
-			image.style.maxWidth=''
+		const setImageHeight = image.alt.match(regexSetImageHeight)
+			? image.alt.match(regexSetImageHeight)[1]
+			: undefined;
+		if (setImageHeight) {
+			image.style.height = setImageHeight + "vh";
+			image.style.maxWidth = "";
 		}
-	})
+	});
 
-	textFit(pages, { multiLine: true, alignHoriz: true, alignVert: true });
+	window.textFit(pages, { multiLine: true, alignHoriz: true, alignVert: true });
 
 	pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
-	
-
 	const numPages = pageFlip.getPageCount();
 	document.querySelector(".page-total").innerText = numPages;
-	updateCurrentPageCounter(actualPage,numPages)
+	updateCurrentPageCounter(actualPage, numPages);
 
 	// On change l'affichage de l'URL sans recharger la page
 	function changeURL(page) {
@@ -139,7 +116,7 @@ function createBook(w, h) {
 		if (portrait) {
 			if (actualPage > 1) {
 				actualPage = actualPage - 1;
-				changeURL(actualPage+1);
+				changeURL(actualPage + 1);
 			} else {
 				actualPage = 0;
 				changeURL(1);
@@ -159,7 +136,7 @@ function createBook(w, h) {
 		if (portrait) {
 			if (actualPage + 1 < numPages) {
 				actualPage = actualPage + 1;
-				changeURL(actualPage+1);
+				changeURL(actualPage + 1);
 			}
 		} else {
 			if (actualPage == 0) {
@@ -192,28 +169,25 @@ function createBook(w, h) {
 	pageFlip.on("flip", (e) => {
 		// On stoppe le focus sur l'iframe s'il y en a une qui est active
 		focusOutIframe();
-		updateCurrentPageCounter(e.data,numPages)
+		updateCurrentPageCounter(e.data, numPages);
 	});
 
-	const goToPageLinksElements = document.querySelectorAll('a[href*="?page"]')
-	const regexGoToPage = /\?page=([0-9]+)/
+	const goToPageLinksElements = document.querySelectorAll('a[href*="?page"]');
+	const regexGoToPage = /\?page=([0-9]+)/;
 	for (const goToPageLinkElement of goToPageLinksElements) {
-		goToPageLinkElement.addEventListener("click",(e) => {
+		goToPageLinkElement.addEventListener("click", (e) => {
 			e.preventDefault();
 			const link = e.target.href;
 			const pageNumberMatch = link.match(regexGoToPage);
-			if(pageNumberMatch) {
+			if (pageNumberMatch) {
 				const pageNumber = parseInt(pageNumberMatch[1]);
-				pageFlip.flip(pageNumber-1);
+				pageFlip.flip(pageNumber - 1);
 				changeURL(pageNumber);
-				actualPage = isEven(pageNumber) ? pageNumber : pageNumber -1;
-				updateCurrentPageCounter(actualPage,numPages);
+				actualPage = isEven(pageNumber) ? pageNumber : pageNumber - 1;
+				updateCurrentPageCounter(actualPage, numPages);
 			}
-		})
+		});
 	}
-
-	
-
 }
 
 function calculateDimensions() {
@@ -235,7 +209,7 @@ function changeToHardPages() {
 	});
 }
 
-function createFlipbook() {
+export function createFlipbook() {
 	const [bookWidth, bookHeight] = calculateDimensions();
 	if (bookWidth < portraitThreshold) {
 		changeToHardPages();
@@ -243,20 +217,20 @@ function createFlipbook() {
 	createBook(bookWidth, bookHeight);
 	setTimeout(() => {
 		if (yamlMaths) {
-			contentDivs = document.querySelectorAll(".textFitted");
+			const contentDivs = document.querySelectorAll(".textFitted");
 			contentDivs.forEach((contentDiv) => {
 				contentDiv.innerHTML = convertLatexExpressions(contentDiv.innerHTML);
 			});
 		}
 	}, 200);
-	const controlsElement = document.getElementById('controls');
+	const controlsElement = document.getElementById("controls");
 	controlsElement.style.visibility = "visible";
 
 	// Gestion du redimensionnement
 	// On ne redimensionne pas si on a cliqué sur un élément (comme une vidéo) pour passer en plein écran ou revenir en écran normal
 	let previousWindowWidth = window.innerWidth;
 	function onResize() {
-		newWindowWidth = window.innerWidth;
+		const newWindowWidth = window.innerWidth;
 		if (!document.fullscreenElement && previousWindowWidth != newWindowWidth) {
 			location.reload();
 		}
