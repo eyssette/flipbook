@@ -8,13 +8,14 @@ import { changeURL } from "./changeURL";
 import { handleNavigation } from "./handleNavigation";
 import { calculateDimensions } from "./calculateBookDimensions";
 import { yaml } from "../processMarkdown/yaml";
+import { changeToHardPages } from "./changeToHardPages";
+import { handleResizeWindow } from "./handleResizeWindow";
+import { resizeImages } from "./resizeImages";
+import { handleGotoPageLink } from "./handleGotoPageLink";
 
 let isPortrait = false;
 const portraitThreshold = 290;
 const bookElement = document.getElementById("book");
-
-const regexSetImageHeight = /h:(.*)?%/;
-const regexGoToPage = /\?page=([0-9]+)/;
 
 function createBook(pages, w, h) {
 	const numPages = pages.length;
@@ -53,16 +54,7 @@ function createBook(pages, w, h) {
 		page.style.height = h + "px";
 	}
 
-	const imagesToResize = document.querySelectorAll('img[alt*="h:"]');
-	imagesToResize.forEach((image) => {
-		const setImageHeight = image.alt.match(regexSetImageHeight)
-			? image.alt.match(regexSetImageHeight)[1]
-			: undefined;
-		if (setImageHeight) {
-			image.style.height = setImageHeight + "vh";
-			image.style.maxWidth = "";
-		}
-	});
+	resizeImages();
 
 	textFit(pages, { multiLine: true, alignHoriz: true, alignVert: true });
 
@@ -79,27 +71,7 @@ function createBook(pages, w, h) {
 		updateCurrentPageCounter(e.data, numPages, isPortrait);
 	});
 
-	const goToPageLinksElements = document.querySelectorAll('a[href*="?page"]');
-	for (const goToPageLinkElement of goToPageLinksElements) {
-		goToPageLinkElement.addEventListener("click", (e) => {
-			e.preventDefault();
-			const link = e.target.href;
-			const pageNumberMatch = link.match(regexGoToPage);
-			if (pageNumberMatch) {
-				const pageNumber = parseInt(pageNumberMatch[1]);
-				pageFlip.flip(pageNumber - 1);
-				changeURL(pageNumber);
-				actualPage = isEven(pageNumber) ? pageNumber : pageNumber - 1;
-				updateCurrentPageCounter(actualPage, numPages, isPortrait);
-			}
-		});
-	}
-}
-
-function changeToHardPages(pages) {
-	pages.forEach((page) => {
-		page.setAttribute("data-density", "hard");
-	});
+	actualPage = handleGotoPageLink(pageFlip, actualPage, numPages, isPortrait);
 }
 
 export function createFlipbook() {
@@ -119,22 +91,5 @@ export function createFlipbook() {
 	const controlsElement = document.getElementById("controls");
 	controlsElement.style.visibility = "visible";
 
-	// Gestion du redimensionnement
-	// On ne redimensionne pas si on a cliqué sur un élément (comme une vidéo) pour passer en plein écran ou revenir en écran normal
-	let previousWindowWidth = window.innerWidth;
-	function onResize() {
-		const newWindowWidth = window.innerWidth;
-		if (!document.fullscreenElement && previousWindowWidth != newWindowWidth) {
-			location.reload();
-		}
-		if (!document.fullscreenElement) {
-			focusOutIframe(pages);
-			previousWindowWidth = newWindowWidth;
-		}
-	}
-	let timeout;
-	window.addEventListener("resize", function () {
-		clearTimeout(timeout);
-		timeout = setTimeout(onResize, 250);
-	});
+	handleResizeWindow(pages);
 }
