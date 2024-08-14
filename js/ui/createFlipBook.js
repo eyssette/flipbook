@@ -1,5 +1,6 @@
 import { PageFlip } from "../externals/page-flip.module";
 import { convertLatexExpressions } from "../processMarkdown/convertLatex";
+import { textFit } from "../externals/textFit";
 
 let portrait = false;
 const portraitThreshold = 290;
@@ -98,7 +99,7 @@ function createBook(w, h) {
 		}
 	});
 
-	window.textFit(pages, { multiLine: true, alignHoriz: true, alignVert: true });
+	textFit(pages, { multiLine: true, alignHoriz: true, alignVert: true });
 
 	pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
