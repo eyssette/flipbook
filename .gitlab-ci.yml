@@ -7,7 +7,7 @@ pages:
     - apk update && apk add gzip brotli
   script:
     - mkdir -p .public .public/css .public/js/externals
-    - cp favicon.ico index.html script.min.js script.min.js.map bookCover.jpg .public/
+    - cp favicon.svg index.html script.min.js script.min.js.map bookCover.jpg .public/
     - cp css/styles.min.css .public/css/
     - cp js/externals/textFit.js .public/js/externals/
     - mv .public public
