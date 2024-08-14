@@ -1,61 +1,25 @@
 import { PageFlip } from "../externals/page-flip.module";
 import { convertLatexExpressions } from "../processMarkdown/convertLatex";
 import { textFit } from "../externals/textFit";
+import { isEven } from "../utils";
+import { focusOutIframe } from "./iframes";
+import { updateCurrentPageCounter } from "./updateCurrentPageCounter";
+import { changeURL } from "./changeURL";
+import { handleNavigation } from "./handleNavigation";
+import { calculateDimensions } from "./calculateBookDimensions";
+import { yaml } from "../processMarkdown/yaml";
 
-let portrait = false;
+let isPortrait = false;
 const portraitThreshold = 290;
-let yamlMaths;
 const bookElement = document.getElementById("book");
 
-// Pour sortir d'une iframe : permet de stopper la vidéo, et remet le focus sur le livre pour pouvoir le contrôler avec le clavier
-let pages;
-function resetIframe(iframe) {
-	const srcIframe = iframe.src;
-	iframe.blur();
-	iframe.src = "";
-	iframe.src = srcIframe;
-}
-function focusOutIframe() {
-	const activeIframe = document.activeElement;
-	if (activeIframe.type == "iframe") {
-		resetIframe(activeIframe);
-	} else {
-		for (const page of pages) {
-			if (page.style.display == "block") {
-				const iframe = page.querySelector("iframe");
-				if (iframe) {
-					resetIframe(iframe);
-				}
-			}
-		}
-	}
-}
+const regexSetImageHeight = /h:(.*)?%/;
+const regexGoToPage = /\?page=([0-9]+)/;
 
-function isEven(n) {
-	return n % 2 == 0;
-}
-
-function updateCurrentPageCounter(numberPage, totalNumberPage) {
-	numberPage = isEven(numberPage) && !portrait ? numberPage : numberPage + 1;
-	let currentPage = "";
-	if (numberPage == 0) {
-		currentPage = "1";
-	} else if (numberPage == totalNumberPage || portrait) {
-		currentPage = numberPage;
-	} else {
-		currentPage = numberPage + "-" + (numberPage + 1);
-	}
-	document.querySelector(".page-current").innerText = currentPage;
-}
-
-function createBook(w, h) {
-	pages = document.querySelectorAll(".page");
-
-	const hash = window.location.hash.substring(1);
-	const baseURL = window.location.origin + window.location.pathname;
-
+function createBook(pages, w, h) {
+	const numPages = pages.length;
 	if (w < portraitThreshold) {
-		portrait = true;
+		isPortrait = true;
 		w = (90 * window.innerWidth) / 100;
 		h = (80 * window.innerHeight) / 100;
 	}
@@ -63,23 +27,25 @@ function createBook(w, h) {
 	let pageParam = parseInt(params.get("page"))
 		? parseInt(params.get("page"))
 		: 0;
-	if (portrait && pageParam == 0) {
+	if (isPortrait && pageParam == 0) {
 		pageParam = 1;
 		changeURL(1);
 	}
-	let actualPage = portrait
+	let actualPage = isPortrait
 		? pageParam - 1
 		: isEven(pageParam)
 			? pageParam
 			: pageParam - 1;
 
+	const startPage = (actualPage == numPages) ? actualPage - 1 : actualPage;
+
 	const pageFlip = new PageFlip(bookElement, {
 		width: w,
 		height: h,
 		showCover: true,
-		usePortrait: portrait,
+		usePortrait: isPortrait,
 		flippingTime: 500,
-		startPage: actualPage,
+		startPage: startPage,
 	});
 
 	for (const page of pages) {
@@ -87,7 +53,6 @@ function createBook(w, h) {
 		page.style.height = h + "px";
 	}
 
-	const regexSetImageHeight = /h:(.*)?%/;
 	const imagesToResize = document.querySelectorAll('img[alt*="h:"]');
 	imagesToResize.forEach((image) => {
 		const setImageHeight = image.alt.match(regexSetImageHeight)
@@ -103,78 +68,18 @@ function createBook(w, h) {
 
 	pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
-	const numPages = pageFlip.getPageCount();
 	document.querySelector(".page-total").innerText = numPages;
-	updateCurrentPageCounter(actualPage, numPages);
+	updateCurrentPageCounter(actualPage, numPages, isPortrait);
 
-	// On change l'affichage de l'URL sans recharger la page
-	function changeURL(page) {
-		const newURL = baseURL + "?page=" + page + "#" + hash;
-		history.pushState({ path: newURL }, "", newURL);
-	}
-
-	function gotToPreviousPage() {
-		if (portrait) {
-			if (actualPage > 1) {
-				actualPage = actualPage - 1;
-				changeURL(actualPage + 1);
-			} else {
-				actualPage = 0;
-				changeURL(1);
-			}
-		} else {
-			if (actualPage > 1) {
-				actualPage = actualPage - 2;
-			} else {
-				actualPage = 0;
-			}
-			changeURL(actualPage);
-		}
-		pageFlip.flipPrev();
-	}
-
-	function gotToNextPage() {
-		if (portrait) {
-			if (actualPage + 1 < numPages) {
-				actualPage = actualPage + 1;
-				changeURL(actualPage + 1);
-			}
-		} else {
-			if (actualPage == 0) {
-				actualPage = actualPage + 2;
-			} else {
-				actualPage = actualPage + 2 <= numPages ? actualPage + 2 : actualPage;
-			}
-			changeURL(actualPage);
-		}
-		pageFlip.flipNext();
-	}
-
-	document.querySelector(".btn-prev").addEventListener("click", () => {
-		gotToPreviousPage();
-	});
-
-	document.querySelector(".btn-next").addEventListener("click", () => {
-		gotToNextPage();
-	});
-
-	document.addEventListener("keydown", function (event) {
-		if (event.key === "ArrowLeft") {
-			gotToPreviousPage();
-		}
-		if (event.key === "ArrowRight") {
-			gotToNextPage();
-		}
-	});
+	actualPage = handleNavigation(pageFlip, actualPage, numPages, isPortrait);
 
 	pageFlip.on("flip", (e) => {
 		// On stoppe le focus sur l'iframe s'il y en a une qui est active
-		focusOutIframe();
-		updateCurrentPageCounter(e.data, numPages);
+		focusOutIframe(pages);
+		updateCurrentPageCounter(e.data, numPages, isPortrait);
 	});
 
 	const goToPageLinksElements = document.querySelectorAll('a[href*="?page"]');
-	const regexGoToPage = /\?page=([0-9]+)/;
 	for (const goToPageLinkElement of goToPageLinksElements) {
 		goToPageLinkElement.addEventListener("click", (e) => {
 			e.preventDefault();
@@ -185,42 +90,29 @@ function createBook(w, h) {
 				pageFlip.flip(pageNumber - 1);
 				changeURL(pageNumber);
 				actualPage = isEven(pageNumber) ? pageNumber : pageNumber - 1;
-				updateCurrentPageCounter(actualPage, numPages);
+				updateCurrentPageCounter(actualPage, numPages, isPortrait);
 			}
 		});
 	}
 }
 
-function calculateDimensions() {
-	let bookWidth = (40 * window.innerWidth) / 100;
-	let bookHeight = (bookWidth / 500) * 600;
-	const maxBookHeight = (85 * window.innerHeight) / 100;
-
-	if (bookHeight > maxBookHeight) {
-		bookHeight = maxBookHeight;
-		bookWidth = (bookHeight / 600) * 500;
-	}
-	return [bookWidth, bookHeight];
-}
-
-function changeToHardPages() {
-	const pages = document.querySelectorAll(".page");
+function changeToHardPages(pages) {
 	pages.forEach((page) => {
 		page.setAttribute("data-density", "hard");
 	});
 }
 
 export function createFlipbook() {
+	const pages = document.querySelectorAll(".page");
 	const [bookWidth, bookHeight] = calculateDimensions();
 	if (bookWidth < portraitThreshold) {
-		changeToHardPages();
+		changeToHardPages(pages);
 	}
-	createBook(bookWidth, bookHeight);
+	createBook(pages, bookWidth, bookHeight);
 	setTimeout(() => {
-		if (yamlMaths) {
-			const contentDivs = document.querySelectorAll(".textFitted");
-			contentDivs.forEach((contentDiv) => {
-				contentDiv.innerHTML = convertLatexExpressions(contentDiv.innerHTML);
+		if (yaml && yaml.maths) {
+			pages.forEach((page) => {
+				page.innerHTML = convertLatexExpressions(page.innerHTML);
 			});
 		}
 	}, 200);
@@ -236,7 +128,7 @@ export function createFlipbook() {
 			location.reload();
 		}
 		if (!document.fullscreenElement) {
-			focusOutIframe();
+			focusOutIframe(pages);
 			previousWindowWidth = newWindowWidth;
 		}
 	}

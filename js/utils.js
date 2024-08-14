@@ -91,3 +91,8 @@ export function loadCSS(src) {
 		document.head.appendChild(styleElement);
 	});
 }
+
+
+export function isEven(n) {
+	return n % 2 == 0;
+}

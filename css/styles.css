@@ -54,10 +54,12 @@ body {
 	overflow:hidden;
 }
 
-.page *:not(ul):not(a) {
-	padding-left: 20px;
+.textFitted {
+	padding-left: 30px;
 	padding-right: 20px;
-	text-align: left
+}
+.textFitted > * {
+	text-align:left;
 }
 
 .page code {
