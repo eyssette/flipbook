@@ -17,7 +17,7 @@ body {
 	text-align: left;
 	background-color: #252121;
 	overflow: hidden;
-	display:flex;
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	/* height:95vh; */
@@ -26,7 +26,7 @@ body {
 #controls {
 	margin: 1em auto;
 	text-align: center;
-	color:white;
+	color: white;
 	background-color: #252121;
 	z-index: 1;
 	visibility: hidden;
@@ -39,19 +39,19 @@ body {
 #book {
 	background-color: #252121;
 	margin: auto;
-	background-image: url("../bookCover.jpg");
+	background-image: url("../bookCover.svg");
 	background-size: cover;
 }
 
-@media screen and (min-width:500px) {
-	#book{
+@media screen and (min-width: 500px) {
+	#book {
 		margin: 1em auto;
 	}
 }
 
 .page {
 	background-color: white;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 .textFitted {
@@ -59,28 +59,30 @@ body {
 	padding-right: 20px;
 }
 .textFitted > * {
-	text-align:left;
+	text-align: left;
 }
 
 .page code {
-	padding:0!important;
+	padding: 0 !important;
 }
 .page pre {
-	padding-left:20px!important;
+	padding-left: 20px !important;
 }
-.page pre, .page code {
-	background-color: #EEE;
+.page pre,
+.page code {
+	background-color: #eee;
 }
 
-.page ul, .page ol {
-	padding-left:1em;
+.page ul,
+.page ol {
+	padding-left: 1em;
 }
 
 .page ul li {
-	padding-left:0.25em;
+	padding-left: 0.25em;
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
 	.page * {
 		padding-left: 5px;
 		padding-right: 5px;
@@ -88,7 +90,7 @@ body {
 }
 
 .page img {
-	max-width:90%;
+	max-width: 90%;
 	object-fit: contain;
 }
 
@@ -97,57 +99,72 @@ mark {
 }
 
 .admonition {
-	border:1px solid black;
+	border: 1px solid black;
 	border-radius: 5px;
-	padding:0!important;
-	background-color: #EEE;
+	padding: 0 !important;
+	background-color: #eee;
 }
 
-.admonition.info, .admonition.note, .admonition.spoiler {
+.admonition.info,
+.admonition.note,
+.admonition.spoiler {
 	border-color: #1505a1;
 	background-color: rgb(194, 225, 235);
 }
-.admonition.tip, .admonition.success {
+.admonition.tip,
+.admonition.success {
 	border-color: #02461f;
 	background-color: rgb(207 235 194);
 }
-.admonition.warning, .admonition.danger, .admonition.bug {
+.admonition.warning,
+.admonition.danger,
+.admonition.bug {
 	border-color: #b94a48;
 	background-color: rgb(241 200 200);
 }
 
 .admonitionContent {
-	font-size:0.95em;
+	font-size: 0.95em;
 }
 
 .admonitionTitle {
-	font-weight:bold;
-	font-size:0.9em;
+	font-weight: bold;
+	font-size: 0.9em;
 }
 
 .admonitionTitle:before {
 	font-weight: 300;
 	margin-right: 0.5em;
-	font-size:1.15em;
+	font-size: 1.15em;
 }
 
-.info .admonitionTitle, .note .admonitionTitle, .spoiler .admonitionTitle {
-	color:#0b0258;
+.info .admonitionTitle,
+.note .admonitionTitle,
+.spoiler .admonitionTitle {
+	color: #0b0258;
 }
-.info .admonitionTitle:before, .note .admonitionTitle:before, .spoiler .admonitionTitle:before {
-	content:"ℹ️";
+.info .admonitionTitle:before,
+.note .admonitionTitle:before,
+.spoiler .admonitionTitle:before {
+	content: "ℹ️";
 }
-.warning .admonitionTitle:before, .danger .admonitionTitle:before, .bug .admonitionTitle:before {
+.warning .admonitionTitle:before,
+.danger .admonitionTitle:before,
+.bug .admonitionTitle:before {
 	content: "⚠️";
 }
 
-.tip .admonitionTitle:before, .success .admonitionTitle:before {
+.tip .admonitionTitle:before,
+.success .admonitionTitle:before {
 	content: "💡";
 }
 
-.tip .admonitionTitle, .success .admonitionTitle {
-	color:#012e14;
+.tip .admonitionTitle,
+.success .admonitionTitle {
+	color: #012e14;
 }
-.warning .admonitionTitle, .danger .admonitionTitle, .bug .admonitionTitle {
-	color:#470302;
+.warning .admonitionTitle,
+.danger .admonitionTitle,
+.bug .admonitionTitle {
+	color: #470302;
 }
