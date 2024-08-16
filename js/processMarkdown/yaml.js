@@ -1,4 +1,4 @@
-import jsYaml from "../externals/js-yaml.js";
+import { load as loadYAML } from "../externals/js-yaml.js";
 import { loadScript, loadCSS } from "../utils.js";
 
 export let yaml;
@@ -6,7 +6,7 @@ export let yaml;
 export function processYAML(markdownContent) {
 	try {
 		// Traitement des propriétés dans le YAML
-		yaml = jsYaml.load(markdownContent.split("---")[1]);
+		yaml = loadYAML(markdownContent.split("---")[1]);
 		if (yaml.maths === true) {
 			Promise.all([
 				loadScript(
