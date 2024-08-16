@@ -38,7 +38,7 @@ function createBook(pages, w, h) {
 			? pageParam
 			: pageParam - 1;
 
-	const startPage = (actualPage == numPages) ? actualPage - 1 : actualPage;
+	const startPage = actualPage == numPages ? actualPage - 1 : actualPage;
 
 	const pageFlip = new PageFlip(bookElement, {
 		width: w,
@@ -72,6 +72,8 @@ function createBook(pages, w, h) {
 	});
 
 	actualPage = handleGotoPageLink(pageFlip, actualPage, numPages, isPortrait);
+	const controlsElement = document.getElementById("controls");
+	controlsElement.style.visibility = "visible";
 }
 
 export function createFlipbook() {
@@ -88,8 +90,5 @@ export function createFlipbook() {
 			});
 		}
 	}, 200);
-	const controlsElement = document.getElementById("controls");
-	controlsElement.style.visibility = "visible";
-
 	handleResizeWindow(pages);
 }
