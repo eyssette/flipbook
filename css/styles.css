@@ -39,7 +39,7 @@ body {
 #book {
 	background-color: #252121;
 	margin: auto;
-	background-image: url("../bookCover.svg");
+	background-image: url("../img/bookCover.svg");
 	background-size: cover;
 }
 

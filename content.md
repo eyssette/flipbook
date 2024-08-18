@@ -25,8 +25,7 @@ education.fr/
 #URL_DU_FLIPBOOK
 ```
 
-Dans son fichier, on sépare simplement chaque page avec l'élément : ```---```
-
+Dans son fichier, on sépare simplement chaque page avec l'élément : `---`
 
 ---
 
@@ -50,7 +49,7 @@ Morbi justo diam, pellentesque quis porta ac, pulvinar nec elit. Ut dignissim ef
 
 On peut insérer des images, mais il faut leur donner une hauteur pour que la police soit ajustée correctement.
 
-![h:20%](https://picsum.photos/500/300)
+![h:20%](img/img.jpg)
 
 On peut indiquer une dimension en pixels :
 `![](URL_image =x300)`
@@ -80,7 +79,6 @@ style: p{color:red}
 ---
 
 On peut insérer un sommaire en écrivant : `!​summary`. Seuls les titres de niveau 2 seront pris en compte dans le sommaire.
-
 
 Pour avoir un lien vers une page spécifique, on écrit :
 `[lien vers page 5](?page=5)`
