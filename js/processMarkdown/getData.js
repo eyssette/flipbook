@@ -1,6 +1,6 @@
 import defaultMD from "../../content.md";
 import { createFlipbook } from "../ui/createFlipBook";
-import { handleURL, splitText } from "../utils";
+import { handleURL, splitText, loadCSS } from "../utils";
 import { markdownToHTML } from "./markdownToHTML";
 import { processYAML } from "./yaml";
 import { processSummary } from "./processSummary";
@@ -36,6 +36,9 @@ function fixImageDimensionsCodiMD(md) {
 }
 
 function parseMarkdown(markdownContent) {
+	if (markdownContent.includes(":::")) {
+		loadCSS("css/admonitions.min.css", "admonitions");
+	}
 	let flipbookDataArray = [];
 
 	markdownContent = fixImageDimensionsCodiMD(markdownContent);

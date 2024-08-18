@@ -69,29 +69,35 @@ export function splitText(text) {
 	return result;
 }
 
-export function loadScript(src) {
+export function loadScript(src, name) {
 	// Fonction pour charger des scripts
-	return new Promise((resolve, reject) => {
-		const script = document.createElement("script");
-		script.src = src;
-		script.onload = resolve;
-		script.onerror = reject;
-		document.head.appendChild(script);
-	});
+	const alreadyLoaded = document.querySelector("#script-" + name);
+	if (!alreadyLoaded) {
+		return new Promise((resolve, reject) => {
+			const script = document.createElement("script");
+			script.src = src;
+			script.id = name;
+			script.onload = resolve;
+			script.onerror = reject;
+			document.head.appendChild(script);
+		});
+	}
 }
-
-export function loadCSS(src) {
+export function loadCSS(src, name) {
 	// Fonction pour charger des CSS
-	return new Promise((resolve, reject) => {
-		const styleElement = document.createElement("link");
-		styleElement.href = src;
-		styleElement.rel = "stylesheet";
-		styleElement.onload = resolve;
-		styleElement.onerror = reject;
-		document.head.appendChild(styleElement);
-	});
+	const cssElement = document.querySelector("#css-" + name);
+	if (!cssElement) {
+		return new Promise((resolve, reject) => {
+			const styleElement = document.createElement("link");
+			styleElement.href = src;
+			styleElement.id = name;
+			styleElement.rel = "stylesheet";
+			styleElement.onload = resolve;
+			styleElement.onerror = reject;
+			document.body.appendChild(styleElement);
+		});
+	}
 }
-
 
 export function isEven(n) {
 	return n % 2 == 0;

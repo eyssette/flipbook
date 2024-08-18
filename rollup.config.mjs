@@ -13,11 +13,23 @@ export default {
 	},
 	plugins: [
 		string({
-			include: "*.md"
+			include: "*.md",
 		}),
 		postcss({
 			extensions: [".css"],
+			include: ["css/styles.css"],
 			extract: "css/styles.min.css",
+			minimize: true,
+			plugins: [
+				cssnano({
+					preset: "default",
+				}),
+			],
+		}),
+		postcss({
+			extensions: [".css"],
+			include: ["css/admonitions.css"],
+			extract: "css/admonitions.min.css",
 			minimize: true,
 			plugins: [
 				cssnano({
