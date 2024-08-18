@@ -4,7 +4,7 @@ style: small{font-size:0.7em}
 
 # Flipbook
 
-Un outil [libre](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr) & gratuit pour créer facilement un livre numérique que l'on peut feuilleter en ligne
+Un outil [libre](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr) & gratuit pour créer facilement un livre numérique à feuilleter en ligne
 
 <small>Créé par : [Cédric Eyssette](https://eyssette.forge.apps.education.fr/)</small>
 
@@ -25,9 +25,9 @@ education.fr/
 #URL_DU_FLIPBOOK
 ```
 
-Dans son fichier, on sépare simplement chaque page avec l'élément : `---`
-
 ---
+
+Dans son fichier, on sépare simplement chaque page avec l'élément : `---`
 
 On peut utiliser toute la syntaxe Markdown ou HTML.
 
@@ -39,9 +39,9 @@ On peut utiliser toute la syntaxe Markdown ou HTML.
 
 ## La taille de la police est ajustée automatiquement pour que le contenu tienne sur la page.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris nec venenatis convallis. Vivamus ultrices fermentum dapibus. Sed quis erat maximus, scelerisque tellus eget, suscipit nisl. Donec vulputate purus ultricies dolor tristique bibendum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consectetur vel diam non eleifend. Proin ultrices leo pulvinar ipsum lobortis, vel sodales quam sagittis.
-Nam sed libero magna. Aliquam ut eleifend libero, ac malesuada massa. Nulla iaculis mi nisl, vitae tempor mi volutpat eu. Aliquam erat volutpat. Mauris sodales ultrices ante, maximus pulvinar dolor. Nullam mattis sem non orci mollis porttitor. Sed aliquam eros velit. Fusce interdum enim sed volutpat accumsan. Proin consequat, nisi in congue varius, ipsum erat elementum elit, eget mollis metus nulla eget risus. Donec aliquet, massa quis feugiat congue, lacus tellus elementum sapien, nec iaculis libero nunc vitae mi. Curabitur eget felis in sapien aliquam volutpat vel vitae urna. Quisque a ipsum a massa convallis eleifend. Nulla facilisi.
-Morbi justo diam, pellentesque quis porta ac, pulvinar nec elit. Ut dignissim efficitur libero non convallis. Nullam eu tincidunt libero, sed tempus elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer a imperdiet sem, vel eleifend purus. Nullam urna enim, mollis sit amet augue eget, sodales euismod erat. Maecenas maximus arcu eu volutpat bibendum. Duis placerat malesuada libero, et feugiat massa feugiat sit amet. Donec auctor lacinia pellentesque. Donec molestie dolor bibendum, luctus lacus a, euismod lorem. Aliquam elementum quam id ex ornare auctor. Maecenas interdum, ligula eleifend viverra posuere, sem massa mattis velit, nec aliquet turpis urna vitae erat. Vestibulum eu purus nibh.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris nec venenatis convallis. Vivamus ultrices fermentum dapibus. Sed quis erat maximus, scelerisque tellus eget, suscipit nisl. Donec vulputate purus ultricies dolor tristique bibendum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consectetur vel diam non eleifend. Proin ultrices leo pulvinar ipsum lobortis, vel sodales quam sagittis. Nam sed libero magna. Aliquam ut eleifend libero, ac malesuada massa. Nulla iaculis mi nisl, vitae tempor mi volutpat eu. Aliquam erat volutpat.
 
 ---
 
