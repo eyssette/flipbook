@@ -4,7 +4,7 @@ style: small{font-size:0.7em}
 
 # Flipbook
 
-Un outil [libre](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr) & gratuit pour créer facilement un livre numérique à feuilleter en ligne
+Un outil libre & gratuit pour créer facilement un livre numérique à feuilleter en ligne
 
 <small>Créé par : [Cédric Eyssette](https://eyssette.forge.apps.education.fr/)</small>
 
@@ -85,3 +85,13 @@ Pour avoir un lien vers une page spécifique, on écrit :
 
 Exemple :
 [lien vers la page 3](?page=3)
+
+---
+
+Flipbook est un logiciel libre.
+
+Les [sources](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr) sont sur la Forge des Communs Numériques Éducatifs.
+
+Vous pouvez m'envoyer vos demandes d'évolution de l'outil, n'hésitez pas !
+
+De préférence, merci d'utiliser les “[tickets](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr/-/issues)” ou sinon, envoyez-moi un [mail](mailto:forge-apps+flipbook-flipbook-forge-apps-education-fr-1075-1zlrcah1x0db338wwkjnjf1g4-issue@phm.education.gouv.fr).
