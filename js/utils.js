@@ -70,13 +70,14 @@ export function splitText(text) {
 }
 
 export function loadScript(src, name) {
+	const prefixScript = "script-";
 	// Fonction pour charger des scripts
-	const alreadyLoaded = document.querySelector("#script-" + name);
+	const alreadyLoaded = document.querySelector("#" + prefixScript + name);
 	if (!alreadyLoaded) {
 		return new Promise((resolve, reject) => {
 			const script = document.createElement("script");
 			script.src = src;
-			script.id = name;
+			script.id = prefixScript + name;
 			script.onload = resolve;
 			script.onerror = reject;
 			document.head.appendChild(script);
@@ -84,13 +85,14 @@ export function loadScript(src, name) {
 	}
 }
 export function loadCSS(src, name) {
+	const prefixCSS = "css-";
 	// Fonction pour charger des CSS
-	const cssElement = document.querySelector("#css-" + name);
+	const cssElement = document.querySelector("#" + prefixCSS + name);
 	if (!cssElement) {
 		return new Promise((resolve, reject) => {
 			const styleElement = document.createElement("link");
 			styleElement.href = src;
-			styleElement.id = name;
+			styleElement.id = prefixCSS + name;
 			styleElement.rel = "stylesheet";
 			styleElement.onload = resolve;
 			styleElement.onerror = reject;
