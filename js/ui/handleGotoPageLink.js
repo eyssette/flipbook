@@ -2,11 +2,10 @@ import { changeURL } from "./changeURL";
 import { isEven } from "../utils";
 import { updateCurrentPageCounter } from "./updateCurrentPageCounter";
 
-const goToPageLinksElements = document.querySelectorAll('a[href*="?page"]');
 const regexGoToPage = /\?page=([0-9]+)/;
 
-
 export function handleGotoPageLink(pageFlip, actualPage, numPages, isPortrait) {
+	const goToPageLinksElements = document.querySelectorAll('a[href*="?page"]');
 	for (const goToPageLinkElement of goToPageLinksElements) {
 		goToPageLinkElement.addEventListener("click", (e) => {
 			e.preventDefault();
