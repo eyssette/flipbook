@@ -2,7 +2,7 @@
 style: small{font-size:0.7em}
 ---
 
-# Flipbook
+# 📖 Flipbook
 
 Un outil libre & gratuit pour créer facilement un livre numérique à feuilleter en ligne
 
