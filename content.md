@@ -25,6 +25,10 @@ education.fr/
 #URL_DU_FLIPBOOK
 ```
 
+<label for="urlInput">Entrez l'URL de votre fichier en Markdown :</label>
+
+<input type="url" id="urlInput" placeholder="Votre URL"> <button id="okButton">OK</button>
+
 ---
 
 Dans son fichier, on sépare simplement chaque page avec l'élément : `---`

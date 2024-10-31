@@ -26,6 +26,31 @@ export function getMarkdownContentAndCreateFlipbook() {
 	} else {
 		createHTMLelements(parseMarkdown(md));
 		createFlipbook();
+		const urlInput = document.getElementById("urlInput");
+		const okButton = document.getElementById("okButton");
+		function redirectToUrl() {
+			const userUrl = urlInput.value.trim();
+			if (userUrl) {
+				const fullUrl = window.location.origin + `/#${userUrl}`;
+				window.open(fullUrl, "_blank");
+			} else {
+				alert("Veuillez entrer une URL valide.");
+			}
+		}
+		okButton.addEventListener("click", (e) => {
+			e.preventDefault();
+			redirectToUrl();
+		});
+		urlInput.addEventListener("keypress", (event) => {
+			if (event.key === "Enter") {
+				redirectToUrl();
+			}
+		});
+		urlInput.addEventListener("click", (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+			urlInput.focus();
+		});
 	}
 }
 
