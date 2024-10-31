@@ -1351,7 +1351,7 @@ class d {
 	checkTarget(t) {
 		return (
 			!this.app.getSettings().clickEventForward ||
-			!["a", "button"].includes(t.tagName.toLowerCase())
+			!["a", "button", "input"].includes(t.tagName.toLowerCase())
 		);
 	}
 }
