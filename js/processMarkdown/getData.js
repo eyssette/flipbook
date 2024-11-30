@@ -11,7 +11,7 @@ let md = defaultMD;
 export function getMarkdownContentAndCreateFlipbook() {
 	// On récupère l'URL du hashtag sans le #
 	const url = window.location.hash.substring(1).replace(/\?.*/, "");
-	// On traite l'URL pour pouvoir récupérer correctement la source du chatbot
+	// On traite l'URL pour pouvoir récupérer correctement la source
 	const sourceFlipbook = handleURL(url);
 	if (sourceFlipbook !== "") {
 		fetch(sourceFlipbook)
