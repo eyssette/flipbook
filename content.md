@@ -98,4 +98,4 @@ Les [sources](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.educa
 
 Vous pouvez m'envoyer vos demandes d'évolution de l'outil, n'hésitez pas !
 
-De préférence, merci d'utiliser les “[tickets](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr/-/issues)” ou sinon, envoyez-moi un [mail](mailto:forge-apps+flipbook-flipbook-forge-apps-education-fr-1075-1zlrcah1x0db338wwkjnjf1g4-issue@phm.education.gouv.fr).
+De préférence, merci d'utiliser les “[tickets](https://forge.apps.education.fr/flipbook/flipbook.forge.apps.education.fr/-/issues)” ou sinon, contactez-moi via les [réseaux sociaux](https://eyssette.forge.apps.education.fr/).
