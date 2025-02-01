@@ -4,7 +4,7 @@ Flipbook est un outil libre et gratuit pour créer facilement un livre numériqu
 
 On peut créer son flipbook sur [CodiMD](https://codimd.apps.education.fr/). Le flipbook sera alors à cette adresse :
 
-`https://eyssette.forge.apps.education.fr/flipbook#URL_DU_FLIPBOOK`
+`https://flipbook.forge.apps.education.fr/#URL_DU_FLIPBOOK`
 
 Dans son fichier, on sépare simplement chaque page avec l'élément : `---`
 
