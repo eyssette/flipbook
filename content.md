@@ -71,10 +71,10 @@ On peut enfin utiliser une image en fond de page en ajoutant `bg` au début du `
 On peut ajouter un en-tête YAML pour accéder à certaines options.
 
 ```
-``​`​
+-​-​-
 maths: true
 style: p{color:red}
-`​`​`​
+-​-​​-​
 ```
 
 - `maths: true` permet d'utiliser des formules mathématiques en Latex
