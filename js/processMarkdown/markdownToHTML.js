@@ -74,6 +74,7 @@ const converter = new Showdown.Converter({
 		showdownExtensionUnderline,
 		showdownExtensionHighlight,
 	],
+	disableForced4SpacesIndentedSublists: true,
 });
 
 export function markdownToHTML(text) {
